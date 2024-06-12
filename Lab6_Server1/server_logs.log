@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2024-06-12T12:38:37.197153Z</date>
+  <millis>1718195917197</millis>
+  <nanos>153000</nanos>
+  <sequence>0</sequence>
+  <logger>Utils.ServerLogger</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>Creating objects</message>
+</record>
+<record>
+  <date>2024-06-12T12:38:37.271893Z</date>
+  <millis>1718195917271</millis>
+  <nanos>893000</nanos>
+  <sequence>1</sequence>
+  <logger>Utils.ServerLogger</logger>
+  <level>WARNING</level>
+  <class>Utils.Parser</class>
+  <method>loadFromCSV</method>
+  <thread>1</thread>
+  <message>An error occurred while loading data from CSV file: MovieCollection.csv (No such file or directory)</message>
+</record>
+<record>
+  <date>2024-06-12T12:38:37.273397Z</date>
+  <millis>1718195917273</millis>
+  <nanos>397000</nanos>
+  <sequence>2</sequence>
+  <logger>Utils.ServerLogger</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>The creation of objects has been completed successfully</message>
+</record>
+<record>
+  <date>2024-06-12T12:38:37.290688Z</date>
+  <millis>1718195917290</millis>
+  <nanos>688000</nanos>
+  <sequence>3</sequence>
+  <logger>Utils.ServerLogger</logger>
+  <level>INFO</level>
+  <class>Utils.CommandManager</class>
+  <method>addCommand</method>
+  <thread>1</thread>
+  <message>Commands added: [help:help: get information about all commands, info:info: get information about collection (type, data of initialization, count of elements), show:show: get all elements in collection, add:add {element}: add new movie into collection, update:update {element}: update element in collection by its id, remove_by_id:remove_by_id {id}: remove element from collection by its id, clear:clear: clear collection, execute_script:execute_script {file_name}: execute script with commands, exit:exit: end app with saving collection into file, print_unique_genre:print_unique_genre: get unique genres in collection, add_if_max:add_if_max {element}: add new movie if oscars count in it more then in any in collection, add_if_min:add_if_min {element}: add new movie if oscars count in it less then in any in collection, history:history: get last 7 commands]</message>
+</record>
+<record>
+  <date>2024-06-12T12:38:37.294336Z</date>
+  <millis>1718195917294</millis>
+  <nanos>336000</nanos>
+  <sequence>4</sequence>
+  <logger>Utils.ServerLogger</logger>
+  <level>WARNING</level>
+  <class>Main</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>A team manager object has been created</message>
+</record>
+<record>
+  <date>2024-06-12T12:38:37.301915Z</date>
+  <millis>1718195917301</millis>
+  <nanos>915000</nanos>
+  <sequence>5</sequence>
+  <logger>Utils.ServerLogger</logger>
+  <level>WARNING</level>
+  <class>Main</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>A request handler object has been created</message>
+</record>
+<record>
+  <date>2024-06-12T12:38:37.306635Z</date>
+  <millis>1718195917306</millis>
+  <nanos>635000</nanos>
+  <sequence>6</sequence>
+  <logger>Utils.ServerLogger</logger>
+  <level>WARNING</level>
+  <class>Main</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>A server object has been created</message>
+</record>
+<record>
+  <date>2024-06-12T12:38:37.319835Z</date>
+  <millis>1718195917319</millis>
+  <nanos>835000</nanos>
+  <sequence>7</sequence>
+  <logger>Utils.ServerLogger</logger>
+  <level>INFO</level>
+  <class>Utils.Server</class>
+  <method>openServerSocket</method>
+  <thread>1</thread>
+  <message>Channel created</message>
+</record>
+<record>
+  <date>2024-06-12T12:38:37.327764Z</date>
+  <millis>1718195917327</millis>
+  <nanos>764000</nanos>
+  <sequence>8</sequence>
+  <logger>Utils.ServerLogger</logger>
+  <level>INFO</level>
+  <class>Utils.Server</class>
+  <method>openServerSocket</method>
+  <thread>1</thread>
+  <message>Socket's channel opened</message>
+</record>
+<record>
+  <date>2024-06-12T12:38:37.330303Z</date>
+  <millis>1718195917330</millis>
+  <nanos>303000</nanos>
+  <sequence>9</sequence>
+  <logger>Utils.ServerLogger</logger>
+  <level>INFO</level>
+  <class>Utils.Server</class>
+  <method>run</method>
+  <thread>1</thread>
+  <message>Connection with client created</message>
+</record>
+</log>
