@@ -16,7 +16,7 @@ public class Show implements Command, Serializable {
     @Override
     public Response execute(Object args, Movie movie, CollectionManager collectionManager) {
         if (args == null) throw new IllegalArgumentException("no arguments");
-        return collectionManager.info();
+        return collectionManager.show();
     }
 
     @Override
