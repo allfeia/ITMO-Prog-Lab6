@@ -5,12 +5,20 @@ import Data.*;
 import java.time.LocalDate;
 import java.util.*;
 
+/**
+ * Класс предоставляющий методы для чтения фильмов введенных пользователем и построения объектов из них
+ */
+
 public class MovieAppender {
+
+    /**
+     * Метод для считывания объекта с консоли построчно, обрабатывает ввод и делает билет
+     * @return введенный пользователем билет
+     * @throws IllegalStateException если билет не получилось сделать
+     */
 
     public static Movie appendMovie() {
         MovieBuilder builder = new MovieBuilder();
-        //PersonBuilder personBuilder = new PersonBuilder();
-        //CoordinateBuilder coordinateBuilder = new CoordinateBuilder();
         Scanner in = new Scanner(System.in);
 
         while (true) {
@@ -171,12 +179,18 @@ public class MovieAppender {
         } else throw new IllegalArgumentException("Something went wrong");
     }
 
+    /**
+     * Аналогичный метод читает объект из файла, в файле объект должен быть в фигурных скобках с полями через запятую
+     * @param args строка из файла описывающая билет
+     * @return введенный пользователем билет
+     * @throws IllegalStateException если билет не получилось сделать
+     * @throws IllegalArgumentException если в файле некорректные значения полей билета
+     */
 
 
     public static Movie appendMovie(String args){
         try{
             MovieBuilder builder = new MovieBuilder();
-            //CoordinateBuilder coordinateBuilder = new CoordinateBuilder();
             PersonBuilder personBuilder = new PersonBuilder();
             ArrayList<String> values = new ArrayList<>(List.of(args.substring(1)
                     .replace("}", "").split(", ")));

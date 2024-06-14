@@ -6,6 +6,11 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
 
+/**
+ * Класс - хранилищe
+ * для хранения коллекции, которой управляет приложение
+ */
+
 public class Repository {
     private final Collection<Movie> collection;
 

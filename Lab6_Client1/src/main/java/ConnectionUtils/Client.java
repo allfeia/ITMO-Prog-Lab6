@@ -7,6 +7,11 @@ import Forms.MovieAppender;
 import java.io.*;
 import java.util.*;
 
+/**
+ * Класс клиент
+ * объект класса представляет консоль для клиента считывающую команды
+ */
+
 
 public class Client {
     private final Map<String, Command> commandMap = new HashMap<>();
@@ -27,6 +32,14 @@ public class Client {
         commandMap.put("add_if_min", new AddIfMin());
         commandMap.put("history", new History());
     }
+
+    /**
+     * Метод запускающий консоль
+     * @param inStream поток ввода (стандартный или файловый)
+     * @param sender отправитель запросов на сервер
+     * @param fileFlag флаг истинный если выполняется команда execute_script и ложный в противном случае
+     */
+
     public void runApp(InputStreamReader inStream, Sender sender, Boolean fileFlag){
         Scanner in = new Scanner(inStream);
         while (in.hasNextLine()){

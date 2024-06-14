@@ -11,8 +11,9 @@ import Commands.*;
 
 import Utils.*;
 
-public class Main extends Thread{
+public class Main{
     public static void main(String[] args) {
+        // Проверка аргументов командной строки
         if (args.length == 0) {
             System.out.println("The application does not work without a file name to save, " +
                     "please restart the application by specifying the correct file path");
@@ -21,7 +22,7 @@ public class Main extends Thread{
                 "the application will try to use the first one as the file name");
 
         Repository repository = new Repository();
-        var filename = args[0];
+        var filename = args[0]; // Получаем имя файла из аргументов
         try {
             Parser.loadFromCSV();
             System.out.println("File has been successfully read");

@@ -46,6 +46,7 @@ public class Server {
                     } else System.out.println("no ansewr.. I'm tired");
                 }
 
+                // Принимаем входящее соединение от клиента
                 SocketChannel clientSocket = ss.accept();
                 if (clientSocket != null) {
                     processClientRequest(clientSocket);
@@ -60,8 +61,10 @@ public class Server {
 
     private void openServerSocket() {
         try {
+            // Создаем серверный сокет и привязываем его к порту
             ss = ServerSocketChannel.open();
             ss.bind(new InetSocketAddress(port));
+            // Конфигурируем сокет в неблокирующий режим
             ss.configureBlocking(false);
         } catch (IOException exception) {
             ServerLogger.getLogger().warning("Error during using port");
@@ -73,10 +76,15 @@ public class Server {
         try (ObjectInputStream clientReader = new ObjectInputStream(clientSocket.socket().getInputStream());
              ObjectOutputStream clientWriter = new ObjectOutputStream(clientSocket.socket().getOutputStream())) {
 
+            // Читаем запрос от клиента
             userRequest = (Request) clientReader.readObject();
             ServerLogger.getLogger().info("Get request " + userRequest);
+
+            // Создаем менеджер команд и выполняем команду
             CommandManager commandManager = new CommandManager();
             var responseToUser = commandManager.runCommand(userRequest, this.collectionManager);
+
+            // Отправляем ответ клиенту
             clientWriter.writeObject(responseToUser);
             ServerLogger.getLogger().info("Send response " + responseToUser.getResult());
             clientWriter.flush();
@@ -85,6 +93,7 @@ public class Server {
         } catch (IOException exception) {
             ServerLogger.getLogger().warning("I/O error " + exception.getMessage());
         } finally {
+            // Закрываем клиентский сокет
             try {
                 clientSocket.close();
             } catch (IOException e) {

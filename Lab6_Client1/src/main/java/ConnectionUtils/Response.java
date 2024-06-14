@@ -9,9 +9,7 @@ import java.util.Comparator;
 import java.util.Objects;
 
 /**
- * Класс Response представляет собой ответ сервера клиенту.
- * Он включает в себя статус ответа, сообщение и коллекцию объектов типа Movie.
- * Данный класс имплементирует интерфейс Serializable, что позволяет сериализовать его объекты.
+ * Response - ответ сервера на запрос клиента, содержит результат выполнения команды
  */
 
 public class Response implements Serializable {

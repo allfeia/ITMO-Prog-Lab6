@@ -7,12 +7,12 @@ import Data.Movie;
 import Collection.CollectionManager;
 
 /**
- * Класс CommandManager управляет командами и отвечает за их выполнение.
- * Он хранит коллекцию команд и предоставляет методы для добавления новых команд,
- * выполнения команд на основе запросов и получения всех доступных команд.
+ * Класс инициатора
+ * инициатор - сущность запускающая команды
  */
 
 public class CommandManager {
+
     public Response runCommand(Request request, CollectionManager collectionManager) {
         Command command = request.getCommand();
         Object args = request.getArgs();

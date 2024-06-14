@@ -4,6 +4,11 @@ import Data.*;
 
 import java.time.LocalDate;
 
+/**
+ * Класс строитель для создания экземпляров класса Movie
+ *
+ */
+
 public class MovieBuilder {
     private Integer id;
     private String name;
@@ -15,7 +20,15 @@ public class MovieBuilder {
     private MpaaRating mpaaRating;
     private Person operator;
 
+    /**
+     * Вспомогательная константа для автоматической генерации значения id
+     */
+
     private static Integer nextId = Math.toIntExact(1L);
+
+    /*
+      Блок инициализации задающий значения полей creationDate и id
+     */
 
     {
         this.creationDate = LocalDate.now();
@@ -23,10 +36,10 @@ public class MovieBuilder {
         nextId++;
     }
 
-    public void withId(Integer id){
-        if (id < 0) throw new IllegalArgumentException("id must be positive integer");
-        this.id = id;
-    }
+//    public void withId(Integer id){
+//        if (id < 0) throw new IllegalArgumentException("id must be positive integer");
+//        this.id = id;
+//    }
 
     public void withName(String name){
         if (name.isBlank()) throw new NullPointerException("call movie!!!");
@@ -38,9 +51,9 @@ public class MovieBuilder {
         this.coordinates = coordinates;
     }
 
-    public void withCreationDate(LocalDate date){
-        this.creationDate = date;
-    }
+//    public void withCreationDate(LocalDate date){
+//        this.creationDate = date;
+//    }
 
     public void withOscarsCount(int oscarsCount){
         if (oscarsCount <= 0) throw new NullPointerException("you don't need bad movie in your collection");
