@@ -3,25 +3,29 @@ package Commands;
 import Collection.CollectionManager;
 import ConnectionUtils.Request;
 import ConnectionUtils.Response;
-import ConnectionUtils.ResponseStatus;
-import Errors.CommandRuntimeException;
-import Errors.ExitObligedException;
-import Errors.IllegalArgumentsException;
+import Data.Movie;
 
+import java.io.Serial;
 import java.io.Serializable;
 
-public class History extends Command implements Serializable {
-    private CollectionManager collectionManager;
+public class History implements Command, Serializable {
 
-    public History(CollectionManager collectionManager) {
-        super("history", "history: get last 7 commands");
-        this.collectionManager = collectionManager;
-    }
-
+    @Serial
+    private static final long serialVersionUID = 8L;
 
     @Override
-    public Response execute(Request request) throws CommandRuntimeException, ExitObligedException, IllegalArgumentsException {
-        if (!request.getArgs().isBlank()) throw new IllegalArgumentsException();
-        return new Response(ResponseStatus.OK,collectionManager.history());
+    public Response execute(Object args, Movie movie, CollectionManager collectionManager) {
+        if (args == null) throw new IllegalArgumentException("no arguments");
+        return collectionManager.history();
+    }
+
+    @Override
+    public String description() {
+        return "history: get last 7 commands";
+    }
+
+    @Override
+    public String getName(){
+        return "history";
     }
 }

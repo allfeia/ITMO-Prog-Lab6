@@ -3,14 +3,8 @@ package Collection;
 import Data.Movie;
 
 public class CollectionUtil {
-    static Validator validator = new Validator();
-    public static boolean checkExist(Integer ID) {
-        for (Movie movie:CollectionManager.getMovies()) {
-            if (movie.getId().equals(ID))
-                return true;
-        }
-        return false;
-    }
+    Validator validator = new Validator();
+
     public static String display(Movie movie) {
         return ("Element's ID  – " + movie.getId() +
                 "\nMovie's name – " + movie.getName() +
@@ -26,24 +20,6 @@ public class CollectionUtil {
                 "\nOperator's eye color - " + movie.getOperator().getEyeColor()+
                 "\n-----------------------------------------------------------------------------\n"
         );
-    }
-    public boolean checkIfCorrect(Movie movie){
-        if (
-                validator.checkName(movie.getName()) ||
-                validator.checkCoordinateX(movie.getCoordinates().getX()) ||
-                validator.checkCoordinateY(movie.getCoordinates().getY()) ||
-                validator.checkOscarsCount(movie.getOscarsCount()) ||
-                validator.checkBudget(movie.getBudget()) ||
-                validator.checkMovieGenre(movie.getMovieGenre()) ||
-                validator.checkMpaaRating(movie.getMpaaRating()) ||
-                validator.checkOperatorsName(movie.getOperator().getName()) ||
-                validator.checkWeight(movie.getOperator().getWeight()) ||
-                validator.checkEyeColor(movie.getOperator().getEyeColor())
-
-        ){
-            return true;
-        }
-        return false;
     }
 
 }

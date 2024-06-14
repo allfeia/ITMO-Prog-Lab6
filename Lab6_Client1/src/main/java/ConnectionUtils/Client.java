@@ -1,123 +1,89 @@
 package ConnectionUtils;
 
-import Console.Console;
+import Commands.*;
+import Utils.ScriptRunner;
+import Forms.MovieAppender;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
-import java.util.Objects;
+import java.io.*;
+import java.util.*;
 
-/**
- * Класс Client представляет собой клиента, который подключается к серверу,
- * отправляет запросы и получает ответы. Он поддерживает повторные попытки
- * подключения в случае разрыва соединения.
- */
 
 public class Client {
-    private String host;
-    private int port;
-    private int reconnectionTimeout;
-    private int reconnectionAttempts;
-    private int maxReconnectionAttempts;
-    private Console console;
-    private Socket socket;
-    private ObjectOutputStream serverWriter;
-    private ObjectInputStream serverReader;
-
-    /**
-     * Конструктор класса Client.
-     *
-     * @param host Адрес сервера
-     * @param port Порт сервера
-     * @param reconnectionTimeout Таймаут между попытками переподключения
-     * @param maxReconnectionAttempts Максимальное количество попыток переподключения
-     * @param console Консоль для вывода сообщений
-     */
-
-//    public Client(String host, int port, int reconnectionTimeout, int maxReconnectionAttempts, Console console) {
-//        this.host = host;
-//        this.port = port;
-//        this.reconnectionTimeout = reconnectionTimeout;
-//        this.maxReconnectionAttempts = maxReconnectionAttempts;
-//        this.console = console;
-//    }
-
-
-    /**
-     * Отправляет запрос на сервер и ждет ответа. В случае сбоя соединения пытается переподключиться.
-     *
-     * @param request Запрос, который необходимо отправить
-     * @return Ответ от сервера
-     */
-
-    public Response sendAndAskResponse(Request request){
-        while (true) {
+    private final Map<String, Command> commandMap = new HashMap<>();
+    {
+        commandMap.put("help", new Help());
+        commandMap.put("info", new Info());
+        commandMap.put("show", new Show());
+        commandMap.put("add", new Add());
+        commandMap.put("update", new UpdateId());
+        commandMap.put("remove_by_id", new RemoveById());
+        commandMap.put("clear", new Clear());
+        commandMap.put("execute_script", new ExecuteScript());
+        commandMap.put("exit", new Exit());
+        commandMap.put("print_unique_genre", new PrintUniqueGenre());
+        commandMap.put("sum_of_oscars_count", new SumOfOscarsCount());
+        commandMap.put("group_counting_by_name", new GroupCountingByName());
+        commandMap.put("add_if_max", new AddIfMax());
+        commandMap.put("add_if_min", new AddIfMin());
+        commandMap.put("history", new History());
+    }
+    public void runApp(InputStreamReader inStream, Sender sender, Boolean fileFlag){
+        Scanner in = new Scanner(inStream);
+        while (in.hasNextLine()){
             try {
-                // Проверка на корректность потоков передачи данных
-                if(Objects.isNull(serverWriter) || Objects.isNull(serverReader)) throw new IOException();
-                if (request.isEmpty()) return new Response(ResponseStatus.WRONG_ARGUMENTS, "Response is empty");
-
-                serverWriter.writeObject(request);
-                serverWriter.flush();
-
-                Response response = (Response) serverReader.readObject();
-
-                //this.disconnectFromServer();
-                reconnectionAttempts = 0;
-                return response;
-            } catch (IOException e) {
-
-                if (reconnectionAttempts == 0){
-                    connectToServer();
-                    reconnectionAttempts++;
-                    continue;
-                } else {
-                    console.printError("The connection to the server is broken");
+                //Чтение и обработка ввода
+                var input = in.nextLine();
+                if (input.isBlank()) {throw new NullPointerException("You didn't entered anything");}
+                List<String> commandWithArgs = List.of(input.split(" "));
+                String commandName = commandWithArgs.get(0).toLowerCase();
+                List<String> commandArguments = null;
+                if (commandWithArgs.size() >= 2){
+                    commandArguments = commandWithArgs.subList(1, commandWithArgs.size());
                 }
+                if (commandMap.get(commandName) == null)
+                    throw new IllegalArgumentException("There is no such command");
+
+                //Построение запроса на сервер
+                var request = new Request();
+                request.setCommand(commandMap.get(commandName));
+                if (commandArguments != null)request.setArgs(String.join(" ",  commandArguments));
+                if (List.of("add", "add_if_max", "add_if_min", "update").contains(commandName)) {
+                    if (fileFlag){
+                        request.setObject(MovieAppender.appendMovie(in.nextLine()));
+                    } else request.setObject(MovieAppender.appendMovie());
+                }
+
+                //Получение и вывод ответа сервера
+                var response = sender.sendRequest(request);
                 try {
-                    reconnectionAttempts++;
-                    if (reconnectionAttempts >= maxReconnectionAttempts) {
-                        console.printError("The maximum number of attempts to connect to the server has been exceeded");
-                        return new Response(ResponseStatus.EXIT);
-                    }
-                    console.write("Retry via " + reconnectionTimeout / 1000 + " sec");
-                    Thread.sleep(reconnectionTimeout);
-                    connectToServer();
-                } catch (Exception exception) {
-                    console.printError("The attempt to connect to the server was unsuccessful");
+                    System.out.println(response.getResult());
+                } catch (NullPointerException e) {
+                    System.err.println("no response from server(");
                 }
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
+
+                if (commandName.equals("exit")) {
+                    System.exit(0);
+                }
+                if (commandName.equals("execute_script")) {
+                    try {
+                        var output = List.of(response.getResult().split(" "));
+                        var filename = output.get(output.size() - 1);
+                        var scriptRunner = new ScriptRunner();
+                        scriptRunner.runScript(filename);
+                    } catch (Exception e) {
+                        System.err.println(e.getMessage());
+                    }
+                }
+            } catch (NoSuchElementException e) {
+                System.err.println("you make me upset.. bye");
+                System.exit(0);
+            }
+            catch (Exception e){
+                if (!fileFlag)
+                    System.err.println(e.getMessage());
             }
         }
     }
 
-    /**
-     * Подключение к серверу.
-     */
 
-    public void connectToServer(){
-        try{
-            if(reconnectionAttempts > 0) console.write("Attempt to reconnect");
-            this.socket = new Socket(host, port);
-            this.serverWriter = new ObjectOutputStream(socket.getOutputStream());
-            this.serverReader = new ObjectInputStream(socket.getInputStream());
-
-        } catch (IllegalArgumentException e){
-            console.printError("The server address was entered incorrectly");
-        } catch (IOException e) {
-            console.printError("An error occurred while connecting to the server");
-        }
-    }
-
-    public void disconnectFromServer(){
-        try {
-            this.socket.close();
-            serverWriter.close();
-            serverReader.close();
-        } catch (IOException e) {
-            console.printError("Not connected to the server");
-        }
-    }
 }

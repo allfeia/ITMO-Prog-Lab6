@@ -1,5 +1,6 @@
 package ConnectionUtils;
 
+import Commands.Command;
 import Data.Movie;
 
 import java.io.*;
@@ -11,86 +12,52 @@ import java.util.Objects;
  */
 
 public class Request implements Serializable {
-    private String commandName;
+
+    private static final long serialVersionUID = 666L;
+    private Command command;
     private String args = "";
-    private Movie object = null;
+    private Movie object;
 
-    /**
-     * Конструктор для создания запроса с командой и объектом типа Movie.
-     * @param ok Статус ответа (не используется внутри конструктора)
-     * @param commandName Название команды
-     * @param object Объект типа Movie
-     */
 
-    public Request(ResponseStatus ok, String commandName, Movie object) {
-        this.commandName = commandName.trim();
+    public Command getCommand() {
+        return command;
     }
 
-    /**
-     * Конструктор для создания запроса с командой и аргументами.
-     * @param commandName Название команды
-     * @param args Аргументы команды
-     */
-
-    public Request(String commandName, String args) {
-        this.commandName = commandName.trim();
-        this.args = args;
+    public void setCommand(Command command) {
+        this.command = command;
     }
 
-    /**
-     * Конструктор для создания запроса с командой и объектом типа Movie.
-     * @param ok Статус ответа (не используется внутри конструктора)
-     * @param commandName Название команды
-     * @param help Объект типа Movie
-     */
-
-    public Request(String commandName, Movie object) {
-        this.commandName = commandName.trim();
-        this.object = object;
-    }
-
-    /**
-     * Конструктор для создания запроса с командой и объектом типа Movie.
-     * @param commandName Название команды
-     * @param object Объект типа Movie
-     */
-
-    public Request(String commandName, String args, Movie object) {
-        this.commandName = commandName.trim();
-        this.args = args.trim();
-        this.object = object;
-    }
-
-    public boolean isEmpty() {
-        return commandName.isEmpty() && args.isEmpty() && object == null;
-    }
-
-    public String getCommandName() {
-        return commandName;
-    }
     public String getArgs() {
         return args;
+    }
+
+    public void setArgs(String args) {
+        this.args = args;
     }
 
     public Movie getObject() {
         return object;
     }
 
+    public void setObject(Movie object) {
+        this.object = object;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Request request)) return false;
-        return Objects.equals(commandName, request.commandName) && Objects.equals(args, request.args) && Objects.equals(object, request.object);
+        return Objects.equals(command, request.command) && Objects.equals(args, request.args) && Objects.equals(object, request.object);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(commandName, args, object);
+        return Objects.hash(command, args, object);
     }
 
     @Override
     public String toString(){
-        return "Request[" + commandName +
+        return "Request[" + command +
                 (args.isEmpty()
                         ? ""
                         : "," + args ) +

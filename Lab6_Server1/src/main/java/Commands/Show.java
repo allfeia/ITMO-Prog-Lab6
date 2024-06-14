@@ -3,26 +3,29 @@ package Commands;
 import Collection.CollectionManager;
 import ConnectionUtils.Request;
 import ConnectionUtils.Response;
-import ConnectionUtils.ResponseStatus;
-import Errors.IllegalArgumentsException;
+import Data.Movie;
 
 import java.io.Serial;
 import java.io.Serializable;
 
-public class Show extends Command implements Serializable {
-    private CollectionManager collectionManager;
+public class Show implements Command, Serializable {
 
-    public Show(CollectionManager collectionManager) {
-        super("show", "show: get all elements in collection");
-        this.collectionManager = collectionManager;
+    @Serial
+    private static final long serialVersionUID = 12L;
+
+    @Override
+    public Response execute(Object args, Movie movie, CollectionManager collectionManager) {
+        if (args == null) throw new IllegalArgumentException("no arguments");
+        return collectionManager.info();
     }
 
     @Override
-    public Response execute(Request request) throws IllegalArgumentsException {
-        if (!request.getArgs().isBlank()) throw new IllegalArgumentsException();
-        if (CollectionManager.getMovies() == null || CollectionManager.getMovies().isEmpty()) {
-            return new Response(ResponseStatus.ERROR, "The collection has not been initialized yet");
-        }
-        return new Response(ResponseStatus.OK, "Collection: \n" + collectionManager.show() + "\n");
+    public String description() {
+        return "show: show all elements in collection";
+    }
+
+    @Override
+    public String getName(){
+        return "show";
     }
 }

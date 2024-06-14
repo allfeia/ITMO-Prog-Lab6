@@ -4,35 +4,38 @@ import Collection.CollectionManager;
 import Collection.CollectionUtil;
 import ConnectionUtils.Request;
 import ConnectionUtils.Response;
-import ConnectionUtils.ResponseStatus;
-import Errors.IllegalArgumentsException;
-import Errors.NoSuchIDException;
+import Data.Movie;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class UpdateId extends Command implements Serializable {
-    private final CollectionManager collectionManager;
+public class UpdateId implements Command, Serializable {
 
-    public UpdateId(CollectionManager collectionManager) {
-        super("update", "update {element}: update element in collection by its id");
-        this.collectionManager = collectionManager;
-    }
+    @Serial
+    private static final long serialVersionUID = 14L;
+
     @Override
-    public Response execute(Request request) throws IllegalArgumentsException {
-        if (request.getArgs().isBlank()) throw new IllegalArgumentsException();
+    public Response execute(Object args, Movie movie, CollectionManager collectionManager) {
+        if (args == null)
+            throw new NullPointerException("enter argument - id");
+        Integer id;
         try {
-            int ID = Integer.parseInt(request.getArgs().trim());
-            if (!CollectionUtil.checkExist(ID)) throw new NoSuchIDException();
-            if (Objects.isNull(request.getObject())){
-                return new Response(ResponseStatus.ASK_OBJECT, "For command " + this.getName() + " needs argument");
-            }
-            collectionManager.updateId(request.getObject(), ID);
-            return new Response(ResponseStatus.OK, "Elements has been successfully updated\n");
-        } catch (NoSuchIDException err) {
-            return new Response(ResponseStatus.ERROR,"There is no element with this id");
-        } catch (NumberFormatException exception) {
-            return new Response(ResponseStatus.ERROR,"id must be integer");
+            id = Integer.parseInt((String) args);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("argument id must be integer");
         }
+        return collectionManager.updateId(movie, id);
+    }
+
+    @Override
+    public String description() {
+        return "update {element}: update element in collection by its id";
+    }
+
+    @Override
+    public String getName(){
+        return "update";
     }
 }
+

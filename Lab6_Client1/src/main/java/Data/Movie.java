@@ -16,7 +16,7 @@ public class Movie implements Comparable<Movie>, Serializable {
     private Person operator;
     IdGenerator idGenerator = new IdGenerator();
 
-    public Movie(String name, Coordinates coordinates, int oscarsCount, long budget, MovieGenre genre, MpaaRating mpaaRating, Person operator) {
+    public Movie(Integer id, String name, Coordinates coordinates, int oscarsCount, long budget, MovieGenre genre, MpaaRating mpaaRating, Person operator) {
         if (name == null || name.isBlank() || coordinates == null || oscarsCount <= 0 || genre == null || mpaaRating == null || operator == null) {
             throw new IllegalArgumentException("The fields can't be null or empty");
         } else {
@@ -113,16 +113,16 @@ public class Movie implements Comparable<Movie>, Serializable {
 
     @Override
     public String toString() {
-        return "Movie{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", coordinates=" + coordinates +
-                ", creationDate=" + creationDate +
-                ", oscarsCount=" + oscarsCount +
-                ", budget=" + budget +
-                ", genre=" + genre +
-                ", mpaaRating=" + mpaaRating +
-                ", operator=" + operator + "}";
+        return "Movie\n" +
+                "id: " + id + "\n" +
+                "name: " + name + "\n" +
+                "coordinates: " + coordinates + "\n" +
+                "creationDate: " + creationDate + "\n" +
+                "oscarsCount: " + oscarsCount + "\n" +
+                "budget: " + budget + "\n" +
+                "genre: " + genre + "\n" +
+                "mpaaRating: " + mpaaRating + "\n" +
+                "operator: " + operator;
     }
     public boolean validate(){
         return this.id >= 0 &&

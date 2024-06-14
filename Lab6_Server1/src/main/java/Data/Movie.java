@@ -113,15 +113,15 @@ public class Movie implements Comparable<Movie>, Serializable {
 
     @Override
     public String toString() {
-        return "Movie{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", coordinates=" + coordinates +
-                ", creationDate=" + creationDate +
-                ", oscarsCount=" + oscarsCount +
-                ", budget=" + budget +
-                ", genre=" + genre +
-                ", mpaaRating=" + mpaaRating +
-                ", operator=" + operator + "}";
+        return "Movie\n" +
+                "id: " + id + "\n" +
+                "name: " + name + "\n" +
+                "coordinates: " + coordinates + "\n" +
+                "creationDate: " + creationDate + "\n" +
+                "oscarsCount: " + oscarsCount + "\n" +
+                "budget: " + budget + "\n" +
+                "genre: " + genre + "\n" +
+                "mpaaRating: " + mpaaRating + "\n" +
+                "operator: " + operator;
     }
 }

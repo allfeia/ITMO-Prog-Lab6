@@ -4,10 +4,13 @@ import java.io.Serial;
 import java.io.Serializable;
 
 public class Coordinates implements Serializable {
+
     @Serial
     private static final long serialVersionUiD = 78L;
+
     private float x;
     private float y;
+
     public Coordinates(float x, float y){
         this.x = x;
         this.y = y;

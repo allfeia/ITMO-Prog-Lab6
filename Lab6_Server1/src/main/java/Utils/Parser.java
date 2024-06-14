@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.util.HashSet;
 
 public class Parser {
-    private static String fileName = "MovieCollection.csv";
+    private static String fileName = "/Users/alyssanabokova/Documents/2sem/labs/prog/Lab6/Lab6_Server1/src/main/java/MovieCollection.csv";
 
     public Parser(String fileName) {
         Parser.fileName = fileName;

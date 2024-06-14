@@ -6,9 +6,11 @@ import java.io.Serializable;
 public class Person implements Serializable {
     @Serial
     private static final long serialVersionUID = 67L;
+
     private String name;
     private float weight;
     private Color eyeColor;
+
     public Person(String name, float weight, Color eyeColor){
         this.name = name;
         this.weight = weight;

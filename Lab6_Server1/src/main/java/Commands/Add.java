@@ -1,36 +1,34 @@
 package Commands;
 
 import Collection.CollectionManager;
-import ConnectionUtils.Request;
 import ConnectionUtils.Response;
-import ConnectionUtils.ResponseStatus;
-import Errors.IllegalArgumentsException;
+import Data.Movie;
 
+import java.io.Serial;
 import java.io.Serializable;
-import java.util.Objects;
 
-public class Add extends Command implements Serializable {
-    private final CollectionManager collectionManager;
+public class Add implements Command, Serializable {
 
-    public Add(CollectionManager collectionManager) {
-        super("add", "add {element}: add new movie into collection");
-        this.collectionManager = collectionManager;
+    @Serial
+    private static final  long serialVersionUID = 0L;
+
+
+    @Override
+    public Response execute(Object args, Movie movie, CollectionManager collectionManager) {
+        if (args == null)
+            throw new IllegalArgumentException("no arguments except movie's parametrs");
+        if (movie == null) throw new IllegalArgumentException("enter movie's parametrs");
+        return collectionManager.add(movie);
+    }
+    @Override
+    public String description() {
+        return "add: add movie into collection";
     }
 
-    /**
-     * add a new element to the collection
-     *
-     * @param request
-     */
     @Override
-    public Response execute(Request request) throws IllegalArgumentsException {
-        if (!request.getArgs().isBlank()) throw new IllegalArgumentsException();
-        if (Objects.isNull(request.getObject())){
-            return new Response(ResponseStatus.ASK_OBJECT, "For command " + this.getName() + " needs argument");
-        } else{
-            collectionManager.add(request.getObject());
-            return new Response(ResponseStatus.OK, "Element has been successfully added\n");
-        }
+    public String getName(){
+        return "add";
     }
 }
+
 
