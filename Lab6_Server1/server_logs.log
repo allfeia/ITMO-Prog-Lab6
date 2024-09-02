@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2024-09-02T00:37:42.798210Z</date>
+  <millis>1725237462798</millis>
+  <nanos>210000</nanos>
+  <sequence>0</sequence>
+  <logger>Utils.ServerLogger</logger>
+  <level>INFO</level>
+  <class>DataBase.DataBaseManager</class>
+  <method>connect</method>
+  <thread>1</thread>
+  <message>Connection Established</message>
+</record>
+<record>
+  <date>2024-09-02T00:37:42.840773Z</date>
+  <millis>1725237462840</millis>
+  <nanos>773000</nanos>
+  <sequence>1</sequence>
+  <logger>Utils.ServerLogger</logger>
+  <level>INFO</level>
+  <class>DataBase.DataBaseManager</class>
+  <method>connect</method>
+  <thread>1</thread>
+  <message>Connection Established</message>
+</record>
+<record>
+  <date>2024-09-02T00:37:42.889277Z</date>
+  <millis>1725237462889</millis>
+  <nanos>277000</nanos>
+  <sequence>2</sequence>
+  <logger>Utils.ServerLogger</logger>
+  <level>INFO</level>
+  <class>Utils.Server</class>
+  <method>run</method>
+  <thread>1</thread>
+  <message>Why are you called me..</message>
+</record>
+<record>
+  <date>2024-09-02T00:38:24.873197Z</date>
+  <millis>1725237504873</millis>
+  <nanos>197000</nanos>
+  <sequence>3</sequence>
+  <logger>Utils.ServerLogger</logger>
+  <level>INFO</level>
+  <class>Utils.Server</class>
+  <method>processClientRequest</method>
+  <thread>19</thread>
+  <message>Get request Request[Commands.Add@67bd4a6d,Movie
+id: null
+name: malena
+coordinates: Coordinates{x=6.0, y=7.0}
+creationDate: 2024-09-02
+oscarsCount: 43
+budget: 10000
+genre: MUSICAL
+mpaaRating: R
+operator: Person{name='JEN', weight=69.0, eyeColor=BLUE}]</message>
+</record>
+<record>
+  <date>2024-09-02T00:39:42.224513Z</date>
+  <millis>1725237582224</millis>
+  <nanos>513000</nanos>
+  <sequence>4</sequence>
+  <logger>Utils.ServerLogger</logger>
+  <level>INFO</level>
+  <class>Utils.Server</class>
+  <method>processClientRequest</method>
+  <thread>21</thread>
+  <message>Get request Request[Commands.Add@5de9d20b,Movie
+id: null
+name: malena
+coordinates: Coordinates{x=6.0, y=7.0}
+creationDate: 2024-09-02
+oscarsCount: 43
+budget: 10000
+genre: MUSICAL
+mpaaRating: R
+operator: Person{name='JEN', weight=69.0, eyeColor=BLUE}]</message>
+</record>
+<record>
+  <date>2024-09-02T00:40:32.232170Z</date>
+  <millis>1725237632232</millis>
+  <nanos>170000</nanos>
+  <sequence>5</sequence>
+  <logger>Utils.ServerLogger</logger>
+  <level>INFO</level>
+  <class>Utils.Server</class>
+  <method>processClientRequest</method>
+  <thread>23</thread>
+  <message>Get request Request[Commands.Add@5f46b941,Movie
+id: null
+name: malena
+coordinates: Coordinates{x=6.0, y=7.0}
+creationDate: 2024-09-02
+oscarsCount: 43
+budget: 10000
+genre: MUSICAL
+mpaaRating: R
+operator: Person{name='JEN', weight=69.0, eyeColor=BLUE}]</message>
+</record>
+</log>
